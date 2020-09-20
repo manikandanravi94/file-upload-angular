@@ -1,0 +1,62 @@
+<div class="form mt-4 ml-5 pl-5">
+    <div class="btn  float-left" style="background-color: #337ab7;color:white;">  
+      <input type="file" (change)="upload($event.target.files)">
+    </div>
+    
+  </div>
+  <br>
+  <br>
+  <br>
+  <div class="wrapper">
+  <ngb-alert type="danger" *ngIf="staticAlertClosed" (close)="staticAlertClosed=false">{{errorMessage}}</ngb-alert>
+  <div *ngIf="showResult">
+      <div class="row">
+      <div class="form-group form-inline">
+          IssueCount Filter <select id="filter" class="custom-select" style="width: auto" [(ngModel)]="comparator">
+            <option [ngValue]="1">less than or equalto</option>
+            <option [ngValue]="2">greater than or equalto</option>
+          </select>
+      </div>
+      <div class="col-2 d-inline-block"><input class="form-control ml-2" type="text" [(ngModel)]="count"/></div>
+      <div class="col-1"><button type="submit" class="btn btn-primary" (click)="filter()">Filter</button></div>
+      <div class="col-1"><button type="reset"  class="btn btn-secondary" (click)="reset()">Reset</button></div>
+    </div>
+  <!-- <div class="form-row">
+    <div class="form-group col-md-4">
+      <label for="filter">Filter by</label>
+      <select id="filter" class="custom-select" style="width: auto" [(ngModel)]="comparator">
+        <option [ngValue]="1">less than or equalto</option>
+        <option [ngValue]="2">greater than or equalto</option>
+      </select>
+    </div>
+    <div class="form-group col-md-4">
+      <label for="issueCount">IssueCount</label>
+      <input id="issueCount" type="text" [(ngModel)]="count" placeholder="IssueCount">
+    </div>
+    <div class="col-1" ><button type="submit" class="btn btn-primary" (click)="filter()">Filter</button></div>
+    <div class="col-1"><button type="reset"  class="btn btn-secondary" (click)="reset()">Reset</button></div>
+  </div> -->
+    <table  class="table table-striped"> 
+      <tr>
+      <th scope="col" *ngFor="let header of headersArray">{{header}}</th>
+    </tr>  
+    <tr *ngFor="let issue of resultArray">
+      <td>{{issue.firstName}}</td>
+      <td>{{issue.lastName}}</td>
+      <td>{{issue.issueCount}}</td>
+      <td>{{issue.dob | date: 'dd-MM-yyyy'}}</td>
+    </tr>
+    </table>
+  
+    <div class="d-flex justify-content-between p-2">
+      <ngb-pagination [collectionSize]="collectionSize" [(page)]="page" [pageSize]="pageSize" (pageChange)="refreshIssues()">
+      </ngb-pagination>
+    
+      <select class="custom-select" style="width: auto" [(ngModel)]="pageSize" (ngModelChange)="refreshIssues()">
+        <option [ngValue]="2">2 items per page</option>
+        <option [ngValue]="4">4 items per page</option>
+        <option [ngValue]="6">6 items per page</option>
+      </select>
+    </div>
+  
+  </div></div>
