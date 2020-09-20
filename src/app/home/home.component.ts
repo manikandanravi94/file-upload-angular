@@ -81,7 +81,7 @@ staticAlertClosed=false;
            this.staticAlertClosed=true;
            this.callTimeout();   
      }else{
-       this.outputArray=this.outputArray.filter((result)=>{
+       this.outputArray=this.customerIssueArray.filter((result)=>{
         console.log("currentvalue :"+result.issueCount); 
         let filteredValue;
         if(this.comparator==1){
